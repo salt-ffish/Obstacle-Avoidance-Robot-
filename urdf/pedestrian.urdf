@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<robot name="pedestrian">
+  <link name="base_link">
+    <visual>
+      <origin xyz="0 0 0.9" rpy="0 0 0"/>
+      <geometry><cylinder radius="0.3" length="1.8"/></geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.9" rpy="0 0 0"/>
+      <geometry><cylinder radius="0.3" length="1.8"/></geometry>
+    </collision>
+    
+    <!-- 物理属性修改 -->
+    <inertial>
+      <mass value="60.0"/>
+      <!-- 将重心死死压在地面上 (z=0.0)，让它变成不倒翁 -->
+      <origin xyz="0 0 0.0"/>
+      <!-- 在 X轴 和 Y轴 施加万吨级别的抗压惯性，彻底锁死倾斜 -->
+      <inertia ixx="10000.0" ixy="0" ixz="0" iyy="10000.0" iyz="0" izz="1.0"/>
+    </inertial>
+  </link>
+  
+  <gazebo reference="base_link">
+    <material>Gazebo/Red</material>
+  </gazebo>
+  
+  <gazebo>
+    <plugin name="pedestrian_driver" filename="libgazebo_ros_planar_move.so">
+      <ros>
+        <remapping>cmd_vel:=cmd_vel</remapping>
+      </ros>
+      <robot_base_frame>base_link</robot_base_frame>
+    </plugin>
+  </gazebo>
+</robot>
