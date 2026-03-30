@@ -4,7 +4,7 @@ from geometry_msgs.msg import Twist
 import sys, termios, tty, select, threading
 
 msg = """
-==== 丝滑平移控制 ====
+==== 平移控制 ====
        W
     A  S  D
 ======================
